@@ -1,0 +1,95 @@
+.friendsInterfaLeft{
+    background: rgba(0,0,0,0.1);
+    float: left !important;
+    width: 20%;
+    height: 700px;
+    border: 1px solid rgba(200, 50,20, 0.2);
+    overflow: hidden;
+}
+.friendsInterfaLeft .onlieUserList{
+    width: 100%;
+}
+.friendsInterfaLeft .p{
+    text-align: center;
+    color: darkorange;
+    font-size: 1em;
+    font-family: "宋体";
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+
+.friendsInterfaLeft .onlieUserListBox{
+    width: 120%;
+    height: 100%;
+    overflow-y:scroll;
+}
+
+.charInterfaceRight{
+    border: 1px solid rgba(200, 50,20, 0.2);
+    float: right;
+    width: 77%;
+}
+
+.simpleMsg{
+    width: 100%;
+    overflow: hidden;
+}
+.simpleMsg .textLeft{
+    width: 7%;
+     float: left;
+}
+.simpleMsg .textLeft .img{
+    padding:10%;
+}
+.simpleMsg .textLeft .img img{
+    width: 80%;
+    margin: auto;
+    border-radius: 500px;
+}
+.simpleMsg .textRight{
+    float: left;
+    font-size: 10px;
+    margin-top:1em;
+    width: 90%;
+}
+.simpleMsg .textRight .textRightName p{
+    color: aquamarine;
+    font-size: 1.3em;
+    font-family: "宋体";
+}
+.simpleMsg .textRight .textRightMsg{
+    margin-top:1em;
+}
+.simpleMsg .textRight .textRightMsg p{
+    color: aqua;
+    font-size: 1.7em;
+    font-family: "宋体";
+}
+.pcomeChat{
+    text-align: center;
+    color: darkorange;
+    font-family: "宋体";
+    font-size: 0.7em;
+    margin-left: 38%;
+    margin-right: 38%;
+    letter-spacing: 3px;
+    background: rgba(200, 50,20, 0.2);
+    border-radius: 100px;
+    padding: 5px 0 5px 0;
+}
+.pgroupChat{
+    text-align: center;
+    color: darkorange;
+    font-size: 1em;
+    font-family: "宋体";
+}
+.friendsInterfaLeft .textLeft{
+    width: 20%;
+    margin-left: 10%;
+}
+.friendsInterfaLeft .textRight{
+    width: 70%;
+}
+
+

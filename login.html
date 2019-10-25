@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport"/>
+		<meta http-equiv="Access-Control-Allow-Origin" content="xxxholic.top">
+		<meta http-equiv="X-UA-Compatible"/>
+		
+		<title>生枝</title>
+		<script src="js/jquery.js"></script>
+		<script src="js/user.js"></script>
+		<script src="js/text.js"></script>
+		<link rel="stylesheet" href="/live2d/css/live2d.css" />
+		<link rel="stylesheet" href="css/user.css" />
+	</head>
+	<body>
+		<div class="content">
+			<div class="form">
+				<form>
+					<input type="text" placeholder="用户名/邮箱" class="userName"/>
+					<input type="password" placeholder="密码" class="passWord"/>
+					<button type="button" id="registe">注册</button>
+					<button type="submit" id="login">登录</button>
+				</form>
+			</div>
+			<!--live2d-->
+		<div id="landlord">
+			<div class="message" style="opacity:0"></div>
+			    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+			<div class="hide-button">隐藏</div>
+		</div>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+		<script type="text/javascript">
+		    var message_Path = '/live2d/'
+		    var home_Path = 'https://xxxholic.top/'
+		</script>
+		<script type="text/javascript" src="/live2d/js/live2d.js"></script>
+		<script type="text/javascript" src="/live2d/js/message.js"></script>
+		<script type="text/javascript">
+		    loadlive2d("live2d", "/live2d/model/tia/model.json");
+		</script>
+
+			<!--备案信息-->
+			<div class="record">
+        		<a href="http://www.beian.miit.gov.cn/"><span>&copy; 生枝 豫ICP备19034170号</span></a>
+      		</div>
+		</div>
+	</body>
+</html>

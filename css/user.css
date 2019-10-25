@@ -1,0 +1,109 @@
+*{
+	padding: 0 ;
+	margin: 0;
+}
+.content{
+	position:absolute;
+	width: 100%;
+	height: 100%;
+	background: url(../img/http-__img.netbian.com_file_2018_0413_e29a73fa74fee24c5c90197590409f01.jpg) center 0 no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+	overflow:auto;
+	overflow-x:hidden;
+}
+.form{
+	width: 250px;
+	margin: 0 auto;
+	margin-top: 290px;
+}
+.form form input{
+	outline: none;
+	height: 25px;
+	width: 230px;
+	font-size: 18px;
+	text-align: center;
+	color:firebrick;
+	font-style: oblique;
+	font-weight: bold;
+	border-radius: 15px;
+	margin-bottom: 10px;
+	padding-left: 10px;
+	padding-top: 2px;
+	opacity: 0.2;
+}
+.form form input:focus{
+	opacity: 0.3;
+}
+.form form button{
+	opacity: 0.2;
+	text-align: center;
+	font-style: oblique;
+	font-size: 18px;
+	width: 120px;
+	height: 30px;
+	background: white;
+	outline: none;
+	box-shadow: none;
+}
+.form form #registe{
+	-webkit-border-bottom-left-radius: 15px;
+	-webkit-border-top-left-radius: 15px;
+}
+.form form #login{
+	-webkit-border-bottom-right-radius: 15px;
+	-webkit-border-top-right-radius: 15px;
+	margin-left: -5px;
+	width: 125px;
+}
+.form form #registeUser{
+	border-radius: 15px;
+	width: 240px;
+}
+.record{
+	position:fixed;
+    bottom:10px;
+    width: 100%;
+    text-align: center;
+}
+.record a{
+	color: black;
+	font-size: 0.6em;
+}
+.indexMsg{
+	width: 100%;
+	border: 1px black solid;
+	height: 40px;
+	overflow: hidden;
+}
+.indexText{
+	background: red;
+	width: 95%;
+	border: none;
+	background: none;
+	font-size: 18px;
+	padding-top: 10px;
+	color:darkgrey;
+	outline: none;
+}
+.indexMsg .indexSend{
+	color: red;
+	background: none ;
+	border: none;
+	line-height: 30px;
+}
+.indexTextBigBox{
+	overflow:hidden;
+	width: 100%;
+	background: rgba(0,0,0,0.1);
+}
+.indexTextBigBox .indexTextBox{
+	height: 650px ;
+	width: 95%;
+	padding-right: 9%;
+	padding-left: 1%; 
+	overflow-y:scroll;
+
+	word-wrap: break-word;
+	word-break: break-all;
+}
