@@ -8,15 +8,17 @@
 		
 		<title>sakura</title>
 		<script src="js/jquery.js"></script>
-		<script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 		<script src="js/websocket.js?v=1.0"></script>
 		<script src="js/text.js?v=1.0"></script>
+		<script src="js/aboutImg.js"></script>
+		<link rel="stylesheet" href="css/iconfont.css?v=1.0">
 		<link rel="stylesheet" href="./live2d/css/live2d.css" />
 		<link rel="stylesheet" href="css/user.css?v=1.0"/>
 		<link rel="stylesheet" href="css/websocket.css?v=1.0"/>
 	</head>
 	<body>
 		<div class="content">
+			<!-- 左侧在线列表 -->
 			<div class="friendsInterfaLeft">
 				<div class="p"><p>在线用户列表</p></div>
 				<div class="onlieUserListBox">
@@ -24,7 +26,8 @@
 						</div>
 				</div>
 			</div>
-			<div class="charInterfaceRight">
+			<!-- 右侧聊天区域 -->
+			<div class="chatInterfaceRight">
 				<form action="" method="get">
 					<div class="indexMsg">
 						  <input class="indexText" type="text" autofocus="autofocus" name="dd"  value="" autocomplete="off" readonly="readonly" placeholder="正在获取服务器资源..."/>
@@ -39,14 +42,19 @@
 					</div>
 				  </div>
 			</div>
-
+			<!-- 右侧设定 -->
+			<div class="rightSetting">
+				<div class="sendImg">
+					<span class="iconfont icon-xiugaitouxiang" title="发送图片"></span>
+					<input type="file" class="sendImgBox" style="display: none;">
+				</div>
+			</div>
 		<!--live2d-->
 		<div id="landlord">
 			<div class="message" style="opacity:0"></div>
 			    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
 			<div class="hide-button">隐藏</div>
 		</div>
-		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 		<script type="text/javascript">
 		    var message_Path = '/live2d/'
 		    var home_Path = 'https://xxxholic.top/'

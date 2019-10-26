@@ -2,7 +2,7 @@
     background: rgba(0,0,0,0.1);
     float: left !important;
     width: 20%;
-    height: 700px;
+    height: 692px;
     border: 1px solid rgba(200, 50,20, 0.2);
     overflow: hidden;
 }
@@ -25,9 +25,9 @@
     overflow-y:scroll;
 }
 
-.charInterfaceRight{
+.chatInterfaceRight{
     border: 1px solid rgba(200, 50,20, 0.2);
-    float: right;
+    float: left;
     width: 77%;
 }
 
@@ -60,11 +60,15 @@
 }
 .simpleMsg .textRight .textRightMsg{
     margin-top:1em;
+    width: 100%;
 }
 .simpleMsg .textRight .textRightMsg p{
     color: aqua;
     font-size: 1.7em;
     font-family: "宋体";
+}
+.simpleMsg .textRight .textRightMsg img{
+   width: 30%;
 }
 .pcomeChat{
     text-align: center;
@@ -91,5 +95,18 @@
 .friendsInterfaLeft .textRight{
     width: 70%;
 }
-
+.rightSetting{
+   position: absolute;
+   right :0px !important;
+}
+.rightSetting .sendImg{
+    text-align: center;
+    color: darkorange;
+    top: 10px;
+    position: absolute;
+    right:10px;
+}
+.rightSetting .sendImg{
+    
+}
 

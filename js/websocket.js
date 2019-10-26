@@ -1,10 +1,11 @@
 //发送信息
+var socket
 $(function() {
   var userInfo = new Map();
   var value={}
   var localId=0;
   // 创建一个Socket实例
-  var socket = new WebSocket("wss://xxxholic.top:8088/ws")
+  socket = new WebSocket("wss://xxxholic.top:8088/ws")
   // 打开Socket
   socket.onopen = function(event) {
 
@@ -45,6 +46,10 @@ $(function() {
             //普通用户消息
             simpleMsg(JSON.parse(event.data).uid, JSON.parse(event.data).userName,JSON.parse(event.data).msg)
             break;
+        case 210:
+                //普通用户消息
+            imgMsg(JSON.parse(event.data).uid, JSON.parse(event.data).userName,JSON.parse(event.data).msg)
+            break;
       }
       
     }
@@ -56,10 +61,14 @@ $(function() {
 
   $("#sub").click(function(e) {
     if ($(".indexText").val() != "") {
-      socket.send(JSON.stringify({"status":100,"msg":$(".indexText").val()}))
+      socket.send(JSON.stringify({"status":200,"msg":$(".indexText").val()}))
       $(".indexText").val("")
     }
     e.preventDefault() 
+  })
+  //点击发送图片之后模拟点击input type=file按钮
+  $(".sendImg").click(function(e){
+    $(".sendImgBox")[0].click();
   })
   //插入信息
   function update(msg) {
@@ -102,6 +111,38 @@ $(function() {
       dSimpleMsg.appendChild(dTextLeft);
       dSimpleMsg.appendChild(dTextRight);
       $(".groupChat")[0].insertBefore(dSimpleMsg,$(".groupChat")[0].childNodes[2])
+  }
+  function imgMsg(id,name,msg){
+    var pName = document.createElement("p")
+      var iImg = document.createElement("img")
+      var imgMsg = document.createElement("img")
+      pName.innerHTML=name;
+      imgMsg.src=msg;
+      iImg.src=(value["userHeadPortrait"]);
+      var dSimpleMsg = document.createElement("div")
+      var dTextLeft = document.createElement("div")
+      var dTextRight = document.createElement("div")
+      var dTextRightName = document.createElement("div")
+      var dTextRightMsg = document.createElement("div")
+      var dImg = document.createElement("div")
+
+      dSimpleMsg.className="simpleMsg";
+      dTextLeft.className="textLeft";
+      dTextRight.className="textRight"
+      dTextRightName.className="textRightName";
+      dTextRightMsg.className="textRightMsg";
+      dImg.className="img";
+      
+      dImg.appendChild(iImg);
+      dTextRightName.appendChild(pName);
+      dTextRightMsg.appendChild(imgMsg);
+      dTextLeft.appendChild(dImg);
+      dTextRight.appendChild(dTextRightName);
+      dTextRight.appendChild(dTextRightMsg);
+      dSimpleMsg.appendChild(dTextLeft);
+      dSimpleMsg.appendChild(dTextRight);
+      $(".groupChat")[0].insertBefore(dSimpleMsg,$(".groupChat")[0].childNodes[2])
+
   }
   function drawOnlieList(id,name,srcImg){
     var pName = document.createElement("p")

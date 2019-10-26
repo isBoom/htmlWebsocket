@@ -9,8 +9,7 @@
 	background: url(../img/other/http-__img.netbian.com_file_2018_0413_e29a73fa74fee24c5c90197590409f01.jpg) center 0 no-repeat;
 	background-size: cover;
 	background-attachment: fixed;
-	overflow:auto;
-	overflow-x:hidden;
+	overflow:hidden;
 }
 .form{
 	width: 250px;
@@ -23,7 +22,7 @@
 	width: 230px;
 	font-size: 18px;
 	text-align: center;
-	color:firebrick;
+	color: darkorange;
 	font-style: oblique;
 	font-weight: bold;
 	border-radius: 15px;
@@ -71,13 +70,13 @@
 	font-size: 0.6em;
 }
 .indexMsg{
-	width: 100%;
+	width: 100%-1px;
 	border: 1px black solid;
 	height: 40px;
 	overflow: hidden;
 }
 .indexText{
-	background: red;
+	color: darkorange;
 	width: 95%;
 	border: none;
 	background: none;
@@ -87,7 +86,7 @@
 	outline: none;
 }
 .indexMsg .indexSend{
-	color: red;
+	color: darkorange;
 	background: none ;
 	border: none;
 	line-height: 30px;
