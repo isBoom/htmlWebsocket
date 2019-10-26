@@ -62,7 +62,7 @@ $(function() {
       type: "POST",
       data: {
         userName: $(".userName").val(),
-        userPassword: $(".userName").val(),
+        userPassword: $(".passWord").val(),
         userEmail: $(".email").val()
       },
       xhrFields: {

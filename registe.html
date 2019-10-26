@@ -8,8 +8,8 @@
 
     <title>生枝</title>
     <script src="js/jquery.js"></script>
-    <script src="js/user.js"></script>
-    <script src="js/text.js"></script>
+    <script src="js/user.js?v=1.0"></script>
+    <script src="js/text.js?v=1.0"></script>
     <link rel="stylesheet" href="/live2d/css/live2d.css" />
     <link rel="stylesheet" href="css/user.css" />
   </head>
@@ -17,9 +17,9 @@
     <div class="content">
       <div class="form">
         <form>
-          <input type="text" placeholder="用户名" class="userName" maxlength="20"  onkeyup="this.value=this.value.replace(/[^\u4e00-\u9fa50-9a-zA-Z']/g,'')"  onblur="this.value=this.value.replace(/[^\u4e00-\u9fa50-9a-zA-Z]/g,'')"/>
+          <input type="text" placeholder="用户名(中文,字母,数字))" class="userName" maxlength="20"  onkeyup="this.value=this.value.replace(/[^\u4e00-\u9fa50-9a-zA-Z']/g,'')"  onblur="this.value=this.value.replace(/[^\u4e00-\u9fa50-9a-zA-Z]/g,'')"/>
           <input type="text" placeholder="邮箱" class="email" />
-          <input type="password" placeholder="密码" class="passWord"/>
+          <input type="password" placeholder="密码(最短六位))" class="passWord"/>
           <input type="password" placeholder="确认密码" class="requestPassWord"/>
           <button type="submit" id="registeUser">注册</button>
         </form>
