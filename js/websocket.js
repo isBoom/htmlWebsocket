@@ -132,12 +132,12 @@ $(function() {
     $dSimpleMsg.insertAfter($(".groupChat")[0].childNodes[1])
 
     $imgMsg.hover(function(){
-      $imgMsg.animate({
+      $imgMsg.stop(true,false).animate({
         "width":"100%"
       },
       600)
     },function(){
-      $imgMsg.animate({
+      $imgMsg.stop(true,false).animate({
         "width":"30%"
       },
       200)

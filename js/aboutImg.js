@@ -13,7 +13,7 @@ $(function(){
             switch (file.type){
             case 'image/jpg': case 'image/png': case 'image/jpeg': case 'image/gif':
             socket.send(JSON.stringify({"status":210,"msg":reader.result}))
-            toBeSendImg_p = $("<p/>").text("正在发送图片...");
+            toBeSendImg_p = $("<p/>").text("正在发送图片(服务器宽带只有5M,速度慢请见谅)...");
             $("body").append(toBeSendImg_p)
             toBeSendImg_p.css({
                     "z-index": 9999999999999,
