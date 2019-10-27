@@ -2,8 +2,8 @@
 var socket
 $(function() {
   var userInfo = new Map();
-  var value={}
   var localId=0;
+  var toBeSendImg_p;
   // 创建一个Socket实例
   socket = new WebSocket("wss://xxxholic.top:8088/ws")
   // 打开Socket
@@ -27,28 +27,38 @@ $(function() {
             break;
         case 100:
             //系统通知
+            console.log("100系统通知")
             update(JSON.parse(event.data).msg)
             break;
         case 110:
             //登录后收到的第一条消息 证明登陆成功
             //存储在线用户信息
+            console.log("110初始化在线用户列表")
             saveOnlineData(JSON.parse(event.data).user)
             break;
         case 120:
             //新用户上线 存储在线用户列表
+            console.log("120小伙伴登陆了")
             saveNewOnlieUser(JSON.parse(event.data).user)
             break;
         case 130:
               //用户离线
+              console.log("130有人离开就再也不会回来了")
               delOnlieUser(JSON.parse(event.data))
               break;
         case 200:
             //普通用户消息
+            console.log("200这是一条普通的消息")
             simpleMsg(JSON.parse(event.data).uid, JSON.parse(event.data).userName,JSON.parse(event.data).msg)
+            
             break;
         case 210:
-                //普通用户消息
+            //不发图等着做遗产吗
+            console.log("210发*图啊")
             imgMsg(JSON.parse(event.data).uid, JSON.parse(event.data).userName,JSON.parse(event.data).msg)
+            if(JSON.parse(event.data).uid==localId){
+              $(".content~p").remove();
+            }
             break;
       }
       
@@ -81,108 +91,89 @@ $(function() {
     $(".groupChat")[0].insertBefore(div,$(".groupChat")[0].childNodes[2])
   }
   function simpleMsg(id,name,msg){
-      var pName = document.createElement("p")
-      var iImg = document.createElement("img")
-      var pMsg = document.createElement("p")
-      pName.innerHTML=name;
-      pMsg.innerHTML=msg;
-
-      iImg.src=(value["userHeadPortrait"]);
-      var dSimpleMsg = document.createElement("div")
-      var dTextLeft = document.createElement("div")
-      var dTextRight = document.createElement("div")
-      var dTextRightName = document.createElement("div")
-      var dTextRightMsg = document.createElement("div")
-      var dImg = document.createElement("div")
-
-      dSimpleMsg.className="simpleMsg";
-      dTextLeft.className="textLeft";
-      dTextRight.className="textRight"
-      dTextRightName.className="textRightName";
-      dTextRightMsg.className="textRightMsg";
-      dImg.className="img";
-      
-      dImg.appendChild(iImg);
-      dTextRightName.appendChild(pName);
-      dTextRightMsg.appendChild(pMsg);
-      dTextLeft.appendChild(dImg);
-      dTextRight.appendChild(dTextRightName);
-      dTextRight.appendChild(dTextRightMsg);
-      dSimpleMsg.appendChild(dTextLeft);
-      dSimpleMsg.appendChild(dTextRight);
-      $(".groupChat")[0].insertBefore(dSimpleMsg,$(".groupChat")[0].childNodes[2])
+    var $pName = $("<p/>").text(name)
+    var $iImg = $('<img src="'+userInfo.get(id)["userHeadPortrait"]+'"/>')
+    var $pMsg = $("<p/>").text(msg)
+    var $dSimpleMsg = $("<div/>").addClass("simpleMsg")
+    var $dTextLeft =$("<div/>").addClass("textLeft")
+    var $dTextRight = $("<div/>").addClass("textRight")
+    var $dTextRightName = $("<div/>").addClass("textRightName")
+    var $dTextRightMsg = $("<div/>").addClass("textRightMsg")
+    var $dImg = $("<div/>").addClass("img")
+    $dImg.append($iImg);
+    $dTextRightName.append($pName);
+    $dTextRightMsg.append($pMsg);
+    $dTextLeft.append($dImg);
+    $dTextRight.append($dTextRightName);
+    $dTextRight.append($dTextRightMsg);
+    $dSimpleMsg.append($dTextLeft);
+    $dSimpleMsg.append($dTextRight);
+    $dSimpleMsg.insertAfter($(".groupChat")[0].childNodes[1])
   }
   function imgMsg(id,name,msg){
-    var pName = document.createElement("p")
-      var iImg = document.createElement("img")
-      var imgMsg = document.createElement("img")
-      pName.innerHTML=name;
-      imgMsg.src=msg;
-      iImg.src=(value["userHeadPortrait"]);
-      var dSimpleMsg = document.createElement("div")
-      var dTextLeft = document.createElement("div")
-      var dTextRight = document.createElement("div")
-      var dTextRightName = document.createElement("div")
-      var dTextRightMsg = document.createElement("div")
-      var dImg = document.createElement("div")
+    var $pName = $("<p/>").text(name);
+    var $iImg = $('<img src="'+userInfo.get(id)["userHeadPortrait"]+'"/>')
+    var $imgMsg = $('<img src="'+msg+'"/>')
+    var $dSimpleMsg =$("<div/>").addClass("simpleMsg")
+    var $dTextLeft = $("<div/>").addClass("textLeft")
+    var $dTextRight =$("<div/>").addClass("textRight")
+    var $dTextRightName =$("<div/>").addClass("textRightName")
+    var $dTextRightMsg =$("<div/>").addClass("textRightMsg")
+    var $dImg =$("<div/>").addClass("img")
+  
+    $dImg.append($iImg)
+    $dTextRightName.append($pName);
+    $dTextRightMsg.append($imgMsg);
+    $dTextLeft.append($dImg);
+    $dTextRight.append($dTextRightName);
+    $dTextRight.append($dTextRightMsg);
+    $dSimpleMsg.append($dTextLeft);
+    $dSimpleMsg.append($dTextRight);
+    $dSimpleMsg.insertAfter($(".groupChat")[0].childNodes[1])
 
-      dSimpleMsg.className="simpleMsg";
-      dTextLeft.className="textLeft";
-      dTextRight.className="textRight"
-      dTextRightName.className="textRightName";
-      dTextRightMsg.className="textRightMsg";
-      dImg.className="img";
-      
-      dImg.appendChild(iImg);
-      dTextRightName.appendChild(pName);
-      dTextRightMsg.appendChild(imgMsg);
-      dTextLeft.appendChild(dImg);
-      dTextRight.appendChild(dTextRightName);
-      dTextRight.appendChild(dTextRightMsg);
-      dSimpleMsg.appendChild(dTextLeft);
-      dSimpleMsg.appendChild(dTextRight);
-      $(".groupChat")[0].insertBefore(dSimpleMsg,$(".groupChat")[0].childNodes[2])
+    $imgMsg.hover(function(){
+      $imgMsg.animate({
+        "width":"100%"
+      },
+      600)
+    },function(){
+      $imgMsg.animate({
+        "width":"30%"
+      },
+      200)
+    })
 
+    
   }
   function drawOnlieList(id,name,srcImg){
-    var pName = document.createElement("p")
-    var iImg = document.createElement("img")
-    var pMsg = document.createElement("p")
-    pName.innerHTML=name;
+    var $pName = $("<p/>").text(name)
+    var $iImg = $('<img src="'+srcImg+'"/>')
+    var $pMsg = $("<p/>").text("")
+    var $dSimpleMsg = $("<div/>").addClass("simpleMsg").attr('id',"id"+String(id));
+    var $dTextLeft =$("<div/>").addClass("textLeft")
+    var $dTextRight = $("<div/>").addClass("textRight")
+    var $dTextRightName = $("<div/>").addClass("textRightName")
+    var $dTextRightMsg = $("<div/>").addClass("textRightMsg")
+    var $dImg = $("<div/>").addClass("img")
+    $dImg.append($iImg);
+    $dTextRightName.append($pName);
+    $dTextRightMsg.append($pMsg);
+    $dTextLeft.append($dImg);
+    $dTextRight.append($dTextRightName);
+    $dTextRight.append($dTextRightMsg);
+    $dSimpleMsg.append($dTextLeft);
+    $dSimpleMsg.append($dTextRight);
+    $(".onlieUserList").prepend($dSimpleMsg)
 
-    iImg.src=srcImg;
-    var dSimpleMsg = document.createElement("div")
-    var dTextLeft = document.createElement("div")
-    var dTextRight = document.createElement("div")
-    var dTextRightName = document.createElement("div")
-    var dTextRightMsg = document.createElement("div")
-    var dImg = document.createElement("div")
-
-    dSimpleMsg.className="simpleMsg";
-    dSimpleMsg.id="id"+id;
-    dTextLeft.className="textLeft";
-    dTextRight.className="textRight"
-    dTextRightName.className="textRightName";
-    dTextRightMsg.className="textRightMsg";
-    dImg.className="img";
-    
-    dImg.appendChild(iImg);
-    dTextRightName.appendChild(pName);
-    dTextRightMsg.appendChild(pMsg);
-    dTextLeft.appendChild(dImg);
-    dTextRight.appendChild(dTextRightName);
-    dTextRight.appendChild(dTextRightMsg);
-    dSimpleMsg.appendChild(dTextLeft);
-    dSimpleMsg.appendChild(dTextRight);
-    $(".onlieUserList")[0].insertBefore(dSimpleMsg,$(".onlieUserList")[0].childNodes[0])
   }
-  ////处理已在线用户信息
+  ////处理已在线用户信息  110
   function saveOnlineData(arr){
     //处理已在线用户信息
     for(var i=0;i<arr.length;i++){
       if (arr[i].uid!=localId){
-        imgSetBase64(arr[i].userHeadPortrait)
+        var value={}
         value.userName=arr[i].userName;
+        imgSetBase64(arr[i].userHeadPortrait,value)
         userInfo.set(arr[i].uid,value);
         drawOnlieList(arr[i].uid,arr[i].userName,arr[i].userHeadPortrait)
       }
@@ -191,13 +182,14 @@ $(function() {
     $(".indexText").removeAttr("readonly")
     $(".indexText").removeAttr("placeholder")
   }
-  //新用户登入
+  //新用户登入  120
   function saveNewOnlieUser(arr){
-      value.userName=arr[0].userName;
-      imgSetBase64(arr[0].userHeadPortrait)
+      var value ={}
+       value.userName=arr[0].userName;
+      imgSetBase64(arr[0].userHeadPortrait,value)
       userInfo.set(arr[0].uid,value);
-      update(arr[0].userName+"来到了聊天室")
-      drawOnlieList(arr[0].uid,arr[0].userName,arr[0].userHeadPortrait)
+       update(arr[0].userName+"来到了聊天室")
+       drawOnlieList(arr[0].uid,arr[0].userName,arr[0].userHeadPortrait);
   }
   //删除在线用户列表
   function delOnlieUser(data){
@@ -205,8 +197,6 @@ $(function() {
     update(data.userName+"离开了聊天室")
     $("#id"+String(data.uid)).remove();
 }
-  delOnlieUser
-
 
 
 //img转Base64
@@ -220,12 +210,13 @@ $(function() {
     return dataURL;
 }
 
-function imgSetBase64(src) {
+function imgSetBase64(src,value) {
     var image = new Image();
     image.src = src + '?v=' + Math.random(); // 处理缓存
     image.crossOrigin = "*";  // 支持跨域图片
     image.onload = function(){
-      value.userHeadPortrait = getBase64Image(image);
+      str=getBase64Image(image);
+      value.userHeadPortrait = str;
     }
 }
 })

@@ -94,7 +94,6 @@ var a = new Array(
     　　　　　 　　　'ｰ'　　!_,.:*/
 
 var a_idx = (Math.round(Math.random()*1000)) % a.length;
-
 jQuery(document).ready(function($) {
     $("html").click(function(e) {
         var $i = $("<span/>").text(a[a_idx]);
