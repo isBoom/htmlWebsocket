@@ -164,7 +164,9 @@ $(function() {
     $dSimpleMsg.append($dTextLeft);
     $dSimpleMsg.append($dTextRight);
     $(".onlieUserList").prepend($dSimpleMsg)
-
+    $(".onlieUserList").prepend($dSimpleMsg)
+    $(".onlieUserList").prepend($dSimpleMsg)
+    $(".onlieUserList").prepend($dSimpleMsg)
   }
   ////处理已在线用户信息  110
   function saveOnlineData(arr){
@@ -197,8 +199,6 @@ $(function() {
     update(data.userName+"离开了聊天室")
     $("#id"+String(data.uid)).remove();
 }
-
-
 //img转Base64
   function getBase64Image(img) {
     var canvas = document.createElement("canvas");

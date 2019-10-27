@@ -6,25 +6,30 @@
     border: 1px solid rgba(200, 50,20, 0.2);
     overflow: hidden;
 }
-.friendsInterfaLeft .onlieUserList{
+.friendsInterfaLeft .onlieUserList,.friendsInterfaLeft .friendUserList{
     width: 100%;
 }
-.friendsInterfaLeft .p{
+.friendsInterfaLeft .pFriendUserListBox,.friendsInterfaLeft .pOnlieUserListBox{
     text-align: center;
     color: darkorange;
     font-size: 1em;
     font-family: "宋体";
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.onlieUserList .simpleMsg,.friendUserList .simpleMsg{
+    background: rgba(0,0,0,0.2);
+    border-bottom: 1px solid  rgba(0,0,0,0.4);
+    border-top: 1px solid  rgba(0,0,0,0.2);
+    border-collapse: collapse;
 }
 
-
-.friendsInterfaLeft .onlieUserListBox{
+.friendsInterfaLeft .onlieUserListBox,.friendsInterfaLeft .friendUserListBox{
     width: 120%;
-    height: 100%;
+    max-height: 88%;
+    overflow: hidden;
     overflow-y:scroll;
 }
-
 .chatInterfaceRight{
     border: 1px solid rgba(200, 50,20, 0.2);
     float: left;
