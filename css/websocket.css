@@ -111,7 +111,21 @@
     position: absolute;
     right:10px;
 }
-.rightSetting .sendImg{
-    
+.rightSetting .changeUserHeadPortrait{
+    text-align: center;
+    color: darkorange;
+    top: 50px;
+    position: absolute;
+    right:10px;
+}
+.rightSetting .safeLeave{
+    text-align: center;
+    color: darkorange;
+    top: 90px;
+    position: absolute;
+    right:10px;
 }
 
+.rightSetting span{
+    font-size: 1.2em;
+}
