@@ -9,7 +9,7 @@
 .friendsInterfaLeft .onlieUserList,.friendsInterfaLeft .friendUserList{
     width: 100%;
 }
-.friendsInterfaLeft .pFriendUserListBox,.friendsInterfaLeft .pOnlieUserListBox{
+.friendsInterfaLeft .pFriendUserListBox,.friendsInterfaLeft .pOnlieUserListBox,.friendsInterfaLeft .backGroupChat{
     text-align: center;
     color: darkorange;
     font-size: 1em;
@@ -87,7 +87,10 @@
     border-radius: 100px;
     padding: 5px 0 5px 0;
 }
-.pgroupChat{
+.groupChat,.personChat{
+    overflow: hidden;
+}
+.pgroupChat,.personChatTitle{
     text-align: center;
     color: darkorange;
     font-size: 1em;

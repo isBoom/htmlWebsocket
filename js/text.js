@@ -102,7 +102,7 @@ jQuery(document).ready(function($) {
             y = e.pageY;
         $i.css({
             "z-index": 9999999999999,
-            "top": y - 30,
+            "top": y - 50,
             "left": x-30,
             "position": "absolute",
             "font-weight": "bold",

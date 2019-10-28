@@ -2,6 +2,7 @@
 var socket
 var localId=0;
 var localVerification="0"
+var nowChat;
 $(function() {
   var userInfo = new Map();
   var toBeSendImg_p;
@@ -86,18 +87,25 @@ $(function() {
   $(".sendImg").click(function(e){
     $(".sendImgBox")[0].click();
   })
-
+  //修改头像
   $(".changeUserHeadPortrait").click(function(e){
     $(".changeUserHeadPortraitBox")[0].click();
   })
-
-
+  //离开
   $(".safeLeave").click(function(e){
     var d = new Date();
 		d.setTime(d.getTime() - 10000);
     document.cookie = "userId" + '=1; expires=' + d.toGMTString();
     document.cookie = "verification" + '=1; expires=' + d.toGMTString();
     window.location.href = "https://xxxholic.top/login.html"
+  })
+  //返回群聊
+  $(".backGroupChat").click(function(){
+    if($(".groupChat")[0].style.display=="none"){
+      nowChat[0].style.display="none"
+      nowChat=$(".groupChat");
+      nowChat[0].style.display="block"
+    }
   })
   //插入信息
   function update(msg) {
@@ -129,12 +137,15 @@ $(function() {
     $dSimpleMsg.append($dTextRight);
     $dSimpleMsg.insertAfter($(".groupChat")[0].childNodes[1])
 
-    var msghHeight = $dSimpleMsg[0].offsetHeight
-    $dSimpleMsg.css({"height":"0px","width":"0px"})
-    $dSimpleMsg.animate({
-          "height": msghHeight+"px",
-          "width":"100%"
-      }, 100,);
+    if(nowChat==$(".indexText")){
+      var msghHeight = $dSimpleMsg[0].offsetHeight
+      $dSimpleMsg.css({"height":"0px","width":"0px"})
+      $dSimpleMsg.animate({
+            "height": msghHeight+"px",
+            "width":"100%"
+        }, 100,);
+    }
+   
     //console.log($dSimpleMsg[0].offsetHeight)
   }
   function imgMsg(id,name,msg){
@@ -170,6 +181,7 @@ $(function() {
       200)
     })
   }
+  //渲染在线列表
   function drawOnlieList(id,name,srcImg){
     var $pName = $("<p/>").text(name)
     var $iImg = $('<img src="'+srcImg+'"/>')
@@ -188,35 +200,50 @@ $(function() {
     $dTextRight.append($dTextRightMsg);
     $dSimpleMsg.append($dTextLeft);
     $dSimpleMsg.append($dTextRight);
-    $(".onlieUserList").prepend($dSimpleMsg)
-    $(".onlieUserList").prepend($dSimpleMsg)
-    $(".onlieUserList").prepend($dSimpleMsg)
-    $(".onlieUserList").prepend($dSimpleMsg)
+
+    $(".onlieUserList").prepend($dSimpleMsg) //案例这句每多写一行 就多添加一个节点 事实写几行也只加一个节点
+
+    if(id!=localId){
+      //添加私聊标识
+    var $personChat = $("<div/>").addClass("id"+id).addClass("personChat")
+    var $psersonDIv = $("<div/>").addClass("personChatTitle").append($("<p/>").text(name))
+    $personChat[0].style.display="none"
+    $(".indexTextBox").append($personChat.append($psersonDIv))
+      $dSimpleMsg.click(function(){
+        nowChat[0].style.display="none"
+        nowChat=$personChat;
+        nowChat[0].style.display="block"
+      })
+    }
+    
   }
   ////处理已在线用户信息  110
   function saveOnlineData(arr){
     //处理已在线用户信息
     for(var i=0;i<arr.length;i++){
-      if (arr[i].uid!=localId){
         var value={}
         value.userName=arr[i].userName;
         imgSetBase64(arr[i].userHeadPortrait,value)
         userInfo.set(arr[i].uid,value);
         drawOnlieList(arr[i].uid,arr[i].userName,arr[i].userHeadPortrait)
-      }
     }
+    //当前聊天为群聊
+    nowChat=$(".groupChat")
+    update("你来到了聊天室")
     //input可输入
     $(".indexText").removeAttr("readonly")
     $(".indexText").removeAttr("placeholder")
   }
   //新用户登入  120
   function saveNewOnlieUser(arr){
+    if (arr.uid!=localId){
       var value ={}
       value.userName=arr.userName;
       imgSetBase64(arr.userHeadPortrait,value)
       userInfo.set(arr.uid,value);
       update(arr.userName+"来到了聊天室")
       drawOnlieList(arr.uid,arr.userName,arr.userHeadPortrait);
+    }
   }
   //删除在线用户列表
   function delOnlieUser(data){
@@ -242,7 +269,6 @@ function ChangeUserHeadPortraitOk(arr){
     var dataURL = canvas.toDataURL("image/jpg");  // 可选其他值 image/jpeg
     return dataURL;
 }
-
 function imgSetBase64(src,value) {
     var image = new Image();
     image.src = src + '?v=' + Math.random(); // 处理缓存
