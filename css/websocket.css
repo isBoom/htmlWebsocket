@@ -42,7 +42,7 @@
 }
 .simpleMsg .textLeft{
     width: 7%;
-     float: left;
+    float: left;
 }
 .simpleMsg .textLeft .img{
     padding:10%;
@@ -104,28 +104,24 @@
    position: absolute;
    right :0px !important;
 }
-.rightSetting .sendImg{
+.rightSetting>div{
     text-align: center;
     color: darkorange;
-    top: 10px;
     position: absolute;
     right:10px;
+}
+.rightSetting .sendImg{
+    top: 10px;
 }
 .rightSetting .changeUserHeadPortrait{
-    text-align: center;
-    color: darkorange;
     top: 50px;
-    position: absolute;
-    right:10px;
+}
+.rightSetting .changeUserName{
+    top: 90px;
 }
 .rightSetting .safeLeave{
-    text-align: center;
-    color: darkorange;
-    top: 90px;
-    position: absolute;
-    right:10px;
+    top: 140px;
 }
-
 .rightSetting span{
     font-size: 1.2em;
 }

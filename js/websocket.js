@@ -128,6 +128,14 @@ $(function() {
     $dSimpleMsg.append($dTextLeft);
     $dSimpleMsg.append($dTextRight);
     $dSimpleMsg.insertAfter($(".groupChat")[0].childNodes[1])
+
+    var msghHeight = $dSimpleMsg[0].offsetHeight
+    $dSimpleMsg.css({"height":"0px","width":"0px"})
+    $dSimpleMsg.animate({
+          "height": msghHeight+"px",
+          "width":"100%"
+      }, 100,);
+    //console.log($dSimpleMsg[0].offsetHeight)
   }
   function imgMsg(id,name,msg){
     var $pName = $("<p/>").text(name);
@@ -145,14 +153,14 @@ $(function() {
     $dTextRightMsg.append($imgMsg);
     $dTextLeft.append($dImg);
     $dTextRight.append($dTextRightName);
-    $dTextRight.append($dTextRightMsg);
+    $dTextRight.append($dTextRightMsg); 
     $dSimpleMsg.append($dTextLeft);
     $dSimpleMsg.append($dTextRight);
     $dSimpleMsg.insertAfter($(".groupChat")[0].childNodes[1])
-
     $imgMsg.hover(function(){
+      $dSimpleMsg.css({"height":"100%"}) //因为设置了overflow 不设置100%的话会隐藏
       $imgMsg.stop(true,false).animate({
-        "width":"100%"
+        "width":"100%",
       },
       600)
     },function(){
@@ -161,8 +169,6 @@ $(function() {
       },
       200)
     })
-
-    
   }
   function drawOnlieList(id,name,srcImg){
     var $pName = $("<p/>").text(name)
