@@ -121,7 +121,7 @@ $(function() {
     var $pName = $("<p/>").text(name)
     var $iImg = $('<img src="'+userInfo.get(id)["userHeadPortrait"]+'"/>')
     var $pMsg = $("<p/>").text(msg)
-    var $dSimpleMsg = $("<div/>").addClass("simpleMsg")
+    var $dSimpleMsg = $("<div/>").addClass("simpleMsg").attr('id',"id"+id);
     var $dTextLeft =$("<div/>").addClass("textLeft")
     var $dTextRight = $("<div/>").addClass("textRight")
     var $dTextRightName = $("<div/>").addClass("textRightName")
@@ -152,7 +152,7 @@ $(function() {
     var $pName = $("<p/>").text(name);
     var $iImg = $('<img src="'+userInfo.get(id)["userHeadPortrait"]+'"/>')
     var $imgMsg = $('<img src="'+msg+'"/>')
-    var $dSimpleMsg =$("<div/>").addClass("simpleMsg")
+    var $dSimpleMsg =$("<div/>").addClass("simpleMsg").attr('id',"id"+id);
     var $dTextLeft = $("<div/>").addClass("textLeft")
     var $dTextRight =$("<div/>").addClass("textRight")
     var $dTextRightName =$("<div/>").addClass("textRightName")
@@ -186,7 +186,7 @@ $(function() {
     var $pName = $("<p/>").text(name)
     var $iImg = $('<img src="'+srcImg+'"/>')
     var $pMsg = $("<p/>").text("")
-    var $dSimpleMsg = $("<div/>").addClass("simpleMsg").attr('id',"id"+String(id));
+    var $dSimpleMsg = $("<div/>").addClass("simpleMsg").attr('id',"id"+id);
     var $dTextLeft =$("<div/>").addClass("textLeft")
     var $dTextRight = $("<div/>").addClass("textRight")
     var $dTextRightName = $("<div/>").addClass("textRightName")
