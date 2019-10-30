@@ -1,7 +1,7 @@
 //发送信息
 var socket
-var localId=0;
-var localVerification="0"
+var localId=0; //cookie 本地id
+var localVerification="0" //cookie md5密码
 var nowChat;//指示当前群聊节点
 var nowChatNum=0;  // 0群聊模式 1私聊模式
 $(function() {
@@ -11,11 +11,10 @@ $(function() {
   socket = new WebSocket("wss://xxxholic.top:8088/ws")
   // 打开Socket
   socket.onopen = function(event) {
-
+    //获取cookie
     var arr,reg=new RegExp("(^| )"+"userId"+"=([^;]*)(;|$)");
     if(arr=document.cookie.match(reg))
       localId=(arr[2]);
-
     var arr,reg=new RegExp("(^| )"+"verification"+"=([^;]*)(;|$)");
     if(arr=document.cookie.match(reg))
       localVerification=(arr[2]);
@@ -59,9 +58,6 @@ $(function() {
         case 210:
             //不发图等着做遗产吗
             imgMsg(JSON.parse(event.data).uid, JSON.parse(event.data).userName,JSON.parse(event.data).msg,$(".groupChat .pgroupChat"))
-            if(JSON.parse(event.data).uid==localId){
-              $(".content~p").remove();
-            }
             break;
         case 311:
             //改头换命
@@ -75,22 +71,28 @@ $(function() {
         case 400:
           //私信
           simpleMsg(JSON.parse(event.data).uid, userInfo.get(JSON.parse(event.data).uid).userName,JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
-            //PrivateChatFromOther(JSON.parse(event.data).msg)
           break
         case 401:
           //自己发送的私信
           simpleMsg(Number(localId), userInfo.get(Number(localId))["userName"],JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
-            //PrivateChatFromMe(JSON.parse(event.data).msg)
+            break
+
+        case 410:
+            //私信
+            imgMsg(JSON.parse(event.data).uid, userInfo.get(JSON.parse(event.data).uid).userName,JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
+            break
+        case 411:
+            //自己发送的私信
+            imgMsg(Number(localId), userInfo.get(Number(localId))["userName"],JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
             break
       }
-      
     }
   }
   socket.onerror = function(event) {
     console.log(event)
     window.location.href = "https://xxxholic.top/login.html"
   }
-
+  //发送
   $("#sub").click(function(e) {
     if ($(".indexText").val() != "") {
        if(nowChatNum==0){ //群聊模式
@@ -144,7 +146,6 @@ $(function() {
     $(".groupChat")[0].insertBefore(div,$(".groupChat")[0].childNodes[2])
   }
   function simpleMsg(id,name,msg,elementName){
-
     var $pName = $("<p/>").text(name)
     var $iImg = $('<img src="'+userInfo.get(id)["userHeadPortrait"]+'"/>')
     var $pMsg = $("<p/>").text(msg)
@@ -163,7 +164,7 @@ $(function() {
     $dSimpleMsg.append($dTextLeft);
     $dSimpleMsg.append($dTextRight);
     $dSimpleMsg.insertAfter(elementName)
-
+    //消息动画效果
     var msghHeight = $dSimpleMsg[0].offsetHeight
     $dSimpleMsg.css({"height":"0px","width":"0px"})
     $dSimpleMsg.animate({
@@ -171,6 +172,7 @@ $(function() {
           "width":"100%"
       }, 150,);
   }
+  //图片消息
   function imgMsg(id,name,msg,element){
     var $pName = $("<p/>").text(name);
     var $iImg = $('<img src="'+userInfo.get(id)["userHeadPortrait"]+'"/>')
@@ -227,12 +229,11 @@ $(function() {
     $(".onlieUserList").prepend($dSimpleMsg) //案例这句每多写一行 就多添加一个节点 事实写几行也只加一个节点
 
     if(id!=localId){
-      //添加私聊标识
     var $personChat = $("<div/>").addClass("id"+id).addClass("personChat").attr("id","id"+id)
     var $psersonDIv = $("<div/>").addClass("personChatTitle").append($("<p/>").text(name))
     $personChat.hide();
     $(".indexTextBox").append($personChat.append($psersonDIv).append($("<span/>")))
-    //返回私聊
+    //进入私聊
       $dSimpleMsg.click(function(){
         nowChat.hide();
         nowChat=$personChat;
@@ -259,9 +260,8 @@ $(function() {
     nowChat=$(".groupChat")
     update("你来到了聊天室")
     //列表'我背景加深'
-    console.log($(".onlieUserList #id"+Number(localId))[0].style.background="rgba(0,0,0,0.4)")
-
-    //input可输入
+    $(".onlieUserList #id"+Number(localId))[0].style.background="rgba(0,0,0,0.4)"
+    //渲染完input可输入 否则消息没头像
     $(".indexText").removeAttr("readonly")
     $(".indexText").removeAttr("placeholder")
   }
@@ -289,7 +289,6 @@ function ChangeUserHeadPortraitOk(arr){
     $(temp+" .textLeft img").attr("src",arr.userHeadPortrait)
     update(userInfo.get(arr.uid).userName+"修改了头像")
 }
-
 //img转Base64
   function getBase64Image(img) {
     var canvas = document.createElement("canvas");
