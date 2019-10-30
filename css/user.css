@@ -72,7 +72,7 @@
 .indexMsg{
 	width: 100%-1px;
 	border: 1px black solid;
-	height: 40px;
+	min-height: 40px;
 	overflow: hidden;
 }
 .indexText{

@@ -54,11 +54,11 @@ $(function() {
               break;
         case 200:
             //普通用户消息
-            simpleMsg(JSON.parse(event.data).uid, JSON.parse(event.data).userName,JSON.parse(event.data).msg,".groupChat .pgroupChat")
+            simpleMsg(JSON.parse(event.data).uid, JSON.parse(event.data).userName,JSON.parse(event.data).msg,$(".groupChat .pgroupChat"))
             break;
         case 210:
             //不发图等着做遗产吗
-            imgMsg(JSON.parse(event.data).uid, JSON.parse(event.data).userName,JSON.parse(event.data).msg,".groupChat .pgroupChat")
+            imgMsg(JSON.parse(event.data).uid, JSON.parse(event.data).userName,JSON.parse(event.data).msg,$(".groupChat .pgroupChat"))
             if(JSON.parse(event.data).uid==localId){
               $(".content~p").remove();
             }
@@ -74,12 +74,12 @@ $(function() {
             break
         case 400:
           //私信
-          simpleMsg(JSON.parse(event.data).uid, userInfo.get(JSON.parse(event.data).uid).userName,JSON.parse(event.data).msg,".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle")
+          simpleMsg(JSON.parse(event.data).uid, userInfo.get(JSON.parse(event.data).uid).userName,JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
             //PrivateChatFromOther(JSON.parse(event.data).msg)
           break
         case 401:
           //自己发送的私信
-          simpleMsg(Number(localId), userInfo.get(Number(localId))["userName"],JSON.parse(event.data).msg,".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle")
+          simpleMsg(Number(localId), userInfo.get(Number(localId))["userName"],JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
             //PrivateChatFromMe(JSON.parse(event.data).msg)
             break
       }
@@ -127,7 +127,10 @@ $(function() {
       nowChat.hide()
       nowChat=$(".groupChat");
       nowChat.show()
-      nowChatNum=0
+      nowChatNum=0;
+      for(var i=1;i<nowChat[0].childNodes.length;i++){
+        nowChat[0].childNodes[i].style.height="100%";
+      }
     }
   })
   //插入信息
@@ -159,21 +162,16 @@ $(function() {
     $dTextRight.append($dTextRightMsg);
     $dSimpleMsg.append($dTextLeft);
     $dSimpleMsg.append($dTextRight);
-    $dSimpleMsg.insertAfter($(elementName))
+    $dSimpleMsg.insertAfter(elementName)
 
-
-   // if(nowChatNum==0){
-      var msghHeight = $dSimpleMsg[0].offsetHeight
-      $dSimpleMsg.css({"height":"0px","width":"0px"})
-      $dSimpleMsg.animate({
-            "height": msghHeight+"px",
-            "width":"100%"
-        }, 150,);
-   // }
-   
-    //console.log($dSimpleMsg[0].offsetHeight)
+    var msghHeight = $dSimpleMsg[0].offsetHeight
+    $dSimpleMsg.css({"height":"0px","width":"0px"})
+    $dSimpleMsg.animate({
+          "height": msghHeight+"px",
+          "width":"100%"
+      }, 150,);
   }
-  function imgMsg(id,name,msg,elementName){
+  function imgMsg(id,name,msg,element){
     var $pName = $("<p/>").text(name);
     var $iImg = $('<img src="'+userInfo.get(id)["userHeadPortrait"]+'"/>')
     var $imgMsg = $('<img src="'+msg+'"/>')
@@ -192,7 +190,7 @@ $(function() {
     $dTextRight.append($dTextRightMsg); 
     $dSimpleMsg.append($dTextLeft);
     $dSimpleMsg.append($dTextRight);
-    $dSimpleMsg.insertAfter($(elementName)[0].childNodes[1])
+    $dSimpleMsg.insertAfter(element)
     $imgMsg.hover(function(){
       $dSimpleMsg.css({"height":"100%"}) //因为设置了overflow 不设置100%的话会隐藏
       $imgMsg.stop(true,false).animate({
@@ -234,11 +232,15 @@ $(function() {
     var $psersonDIv = $("<div/>").addClass("personChatTitle").append($("<p/>").text(name))
     $personChat.hide();
     $(".indexTextBox").append($personChat.append($psersonDIv).append($("<span/>")))
+    //返回私聊
       $dSimpleMsg.click(function(){
         nowChat.hide();
         nowChat=$personChat;
         nowChat.show()
         nowChatNum=1
+        for(var i=1;i<$personChat[0].childNodes.length;i++){
+          $personChat[0].childNodes[i].style.height="100%";
+        }
       })
     }
     
@@ -256,6 +258,9 @@ $(function() {
     //当前聊天为群聊
     nowChat=$(".groupChat")
     update("你来到了聊天室")
+    //列表'我背景加深'
+    console.log($(".onlieUserList #id"+Number(localId))[0].style.background="rgba(0,0,0,0.4)")
+
     //input可输入
     $(".indexText").removeAttr("readonly")
     $(".indexText").removeAttr("placeholder")
