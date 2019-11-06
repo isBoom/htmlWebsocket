@@ -16,12 +16,13 @@
 		<link rel="stylesheet" href="./live2d/css/live2d.css" />
 		<link rel="stylesheet" href="css/user.css?v=1.0"/>
 		<link rel="stylesheet" href="css/websocket.css?v=1.0"/>
+		<link rel="stylesheet" href="css/modalBox.css?v=1.0"/>
 	</head>
 	<body>
 		<div class="content">
 			<!-- 左侧在线列表 -->
 			<div class="friendsInterfaLeft">
-				<div class="backGroupChat"><span>返回群聊</span> <span class="iconfont icon-shouye" style="font-size: 22px;"></span></div>
+				<div class="backGroupChat"><span>返回群聊</span> <span class="iconfont icon-fanhui" style="font-size: 10x;"></span></div>
 				<div class="pFriendUserListBox"><span>好友列表</span> <span class="iconfont icon-guanbi" style="font-size: 22px;"></span></div>
 				<div class="friendUserListBox">
 						<div class="friendUserList">
@@ -59,6 +60,12 @@
 					<span class="iconfont icon-touxiang" title="修改头像"></span>
 					<input type="file" class="changeUserHeadPortraitBox" style="display: none;">
 				</div>
+				<div class="addFriends">
+					<span class="iconfont icon-addfriends" title="添加好友"></span>
+				</div>
+				<div class="friendsValidation">
+					<span class="iconfont icon-msg" title="好友验证信息"></span>
+				</div>
 				<!-- <div class="changeUserName">
 					<span class="iconfont icon-mingzixiugai" title="修改名称""></span>
 				</div> -->
@@ -66,6 +73,19 @@
 					<span class="iconfont icon-tuichu" title="退出"></span>
 				</div>
 			</div>
+		<!-- 模态框  -->
+		<button id="triggerBtn" style="display: none">模态框</button>
+		<div id="myModal" class="modal">
+				<div class="modal-content">
+					<div class="modal-header">
+						<span id="closeBtn" class="close" style="margin-left: 97%; position: relative;;top: -20px; right: -5px;">×</span>
+					</div>
+					<div class="modal-body">
+						
+					</div>
+				</div>
+		</div>
+		<script src="js/modal.js?v=1.0"></script>
 		<!--live2d-->
 		<div id="landlord">
 			<div class="message" style="opacity:0"></div>

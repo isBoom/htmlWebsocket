@@ -71,6 +71,7 @@ $(function() {
         case 400:
           //私信
           simpleMsg(JSON.parse(event.data).uid, userInfo.get(JSON.parse(event.data).uid).userName,JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
+          $(".onlieUserList #id"+JSON.parse(event.data).uid+" .textRight .textRightMsg p")[0].innerHTML=JSON.parse(event.data).msg;
           break
         case 401:
           //自己发送的私信
@@ -78,13 +79,27 @@ $(function() {
             break
 
         case 410:
-            //私信
+            //私信图
             imgMsg(JSON.parse(event.data).uid, userInfo.get(JSON.parse(event.data).uid).userName,JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
+            $(".onlieUserList #id"+JSON.parse(event.data).uid+" .textRight .textRightMsg p")[0].innerHTML="[图片]";
             break
         case 411:
             //自己发送的私信
             imgMsg(Number(localId), userInfo.get(Number(localId))["userName"],JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
             break
+        case 500:case 510:
+            //500 成功发送好友请求   510查如此人
+            $p = $("<p/>").text(JSON.parse(event.data).msg)
+            $p.css({
+              "font-size":"16px",
+              "font-family":"宋体"
+            })
+            $(".modal-body")[0].append($p[0])
+            break;
+        case 520:
+            //有人加你
+          console.log(JSON.parse(event.data).friendsrRquest)
+              break;
       }
     }
   }
@@ -114,6 +129,27 @@ $(function() {
   //修改头像
   $(".changeUserHeadPortrait").click(function(e){
     $(".changeUserHeadPortraitBox")[0].click();
+  })
+  //查看要有验证信息
+  $(".friendsValidation").click(function(e){
+    $("#triggerBtn").click();
+  })
+  //添加好友
+  $(".addFriends").click(function(e){
+    $(".modal-body").empty();
+    var $form = $("<form/>").attr("action","").attr("method","get")
+    var $inputText = $("<input/>").attr("class","addFriendsInputText").attr("type","text").attr("placeholder","请输入待添加好友的昵称/邮箱").attr("autocomplete","off");
+    var $inputSumbit = $("<input/>").attr("class","addFriendsInputSumbit").attr("type","submit").attr("value","添加")
+    $form[0].append($inputText[0]);
+    $form[0].append($inputSumbit[0]);
+    $(".modal-body")[0].append($form[0])
+    $inputSumbit.click(function(e){
+      if($inputText.val()!="")
+      socket.send(JSON.stringify({"status":500,"msg":$inputText.val()}))
+      $inputText.val("")
+      e.preventDefault();
+    })
+    $("#triggerBtn").click();
   })
   //离开
   $(".safeLeave").click(function(e){
@@ -211,7 +247,7 @@ $(function() {
     var $pName = $("<p/>").text(name)
     var $iImg = $('<img src="'+srcImg+'"/>')
     var $pMsg = $("<p/>").text("")
-    var $dSimpleMsg = $("<div/>").addClass("simpleMsg").attr('id',"id"+id);
+    var $dSimpleMsg = $("<div/>").addClass("simpleMsg").attr('id',"id"+id).attr("userType","simpleOnlieUser");
     var $dTextLeft =$("<div/>").addClass("textLeft")
     var $dTextRight = $("<div/>").addClass("textRight")
     var $dTextRightName = $("<div/>").addClass("textRightName")

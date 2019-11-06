@@ -23,6 +23,12 @@
     border-top: 1px solid  rgba(0,0,0,0.2);
     border-collapse: collapse;
 }
+.onlieUserList .simpleMsg .textRight .textRightMsg p{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
 
 .friendsInterfaLeft .onlieUserListBox,.friendsInterfaLeft .friendUserListBox{
     width: 120%;
@@ -46,11 +52,12 @@
 }
 .simpleMsg .textLeft .img{
     padding:10%;
+    height:width;
 }
 .simpleMsg .textLeft .img img{
     width: 80%;
     margin: auto;
-    border-radius: 500px;
+    border-radius: 5000px;
 }
 .simpleMsg .textRight{
     float: left;
@@ -58,10 +65,17 @@
     margin-top:1em;
     width: 90%;
 }
+.onlieUserListBox .simpleMsg .textRight{
+    float: left;
+    width: 60% !important;
+}
 .simpleMsg .textRight .textRightName p{
     color: aquamarine;
     font-size: 1.3em;
     font-family: "宋体";
+}
+.simpleMsg .textRight .textRightName p{
+    padding-right: 3%;
 }
 .simpleMsg .textRight .textRightMsg{
     margin-top:1em;
@@ -119,12 +133,21 @@
 .rightSetting .changeUserHeadPortrait{
     top: 50px;
 }
-.rightSetting .changeUserName{
+.rightSetting .addFriends{
     top: 90px;
 }
-.rightSetting .safeLeave{
+.rightSetting .friendsValidation{
     top: 140px;
 }
+.rightSetting .safeLeave{
+    top: 190px;
+}
+.rightSetting .changeUserName{
+    top: 300px;
+}
+
+
+
 .rightSetting span{
     font-size: 1.2em;
 }
