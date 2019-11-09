@@ -46,11 +46,13 @@
 }
 .modal-body .addFriendsInputText{
     height: 30px;
-    width: 90%;
+    width: 80%;
 }
-.modal-body .addFriendsInputSumbit{
+.modal-body .addFriendsInputSumbit,.agreedOrRefused{
     height: 30px;
     width: 5%;
     background:rgba(5, 247, 226, 0);
     text-align: center;
+    margin-right: 5%;
+    margin-left: 5%;
 }

@@ -22,52 +22,52 @@ $(function() {
     socket.onmessage = function(event) {
       switch (JSON.parse(event.data).status){
         case 0:
-            alert(JSON.parse(event.data).msg)
-            break;
+          alert(JSON.parse(event.data).msg)
+          break;
         case 10 :case 20:
-            //10 cookie错误
-            //20 账号已登录
-            alert(JSON.parse(event.data).msg)
-            window.location.href = "https://xxxholic.top/login.html";
-            break
+          //10 cookie错误
+          //20 账号已登录
+          alert(JSON.parse(event.data).msg)
+          window.location.href = "https://xxxholic.top/login.html";
+          break
         case 30:
-            //没有cookie
-            window.location.href = "https://xxxholic.top/login.html";
-            break;
+          //没有cookie
+          window.location.href = "https://xxxholic.top/login.html";
+          break;
         case 100:
-            //系统通知
-            update(JSON.parse(event.data).msg)
-            break;
+          //系统通知
+          update(JSON.parse(event.data).msg)
+          break;
         case 110:
-            //登录后收到的第一条消息 证明登陆成功
-            //存储在线用户信息
-            saveOnlineData(JSON.parse(event.data).user)
-            break;
+          //登录后收到的第一条消息 证明登陆成功
+          //存储在线用户信息
+          saveOnlineData(JSON.parse(event.data).user)
+          break;
         case 120:
-            //新用户上线 存储在线用户列表
-            saveNewOnlieUser(JSON.parse(event.data).user[0])
-            break;
+          //新用户上线 存储在线用户列表
+          saveNewOnlieUser(JSON.parse(event.data).user[0])
+          break;
         case 130:
-              //用户离线
-              delOnlieUser(JSON.parse(event.data))
-              break;
+          //用户离线
+          delOnlieUser(JSON.parse(event.data))
+          break;
         case 200:
-            //普通用户消息
-            simpleMsg(JSON.parse(event.data).uid, JSON.parse(event.data).userName,JSON.parse(event.data).msg,$(".groupChat .pgroupChat"))
-            break;
+          //普通用户消息
+          simpleMsg(JSON.parse(event.data).uid, JSON.parse(event.data).userName,JSON.parse(event.data).msg,$(".groupChat .pgroupChat"))
+          break;
         case 210:
-            //不发图等着做遗产吗
-            imgMsg(JSON.parse(event.data).uid, JSON.parse(event.data).userName,JSON.parse(event.data).msg,$(".groupChat .pgroupChat"))
-            break;
+          //不发图等着做遗产吗
+          imgMsg(JSON.parse(event.data).uid, JSON.parse(event.data).userName,JSON.parse(event.data).msg,$(".groupChat .pgroupChat"))
+          break;
         case 311:
-            //改头换命
-            alert("修复头像失败")
-            console.log(JSON.parse(event.data).msg)
-            break
+          //改头换命
+          alert("修复头像失败")
+          console.log(JSON.parse(event.data).msg)
+          break
         case 312:
           //改头换命
-            ChangeUserHeadPortraitOk(JSON.parse(event.data).user[0])
-            break
+          ChangeUserHeadPortraitOk(JSON.parse(event.data).user[0])
+          break;
         case 400:
           //私信
           simpleMsg(JSON.parse(event.data).uid, userInfo.get(JSON.parse(event.data).uid).userName,JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
@@ -76,30 +76,37 @@ $(function() {
         case 401:
           //自己发送的私信
           simpleMsg(Number(localId), userInfo.get(Number(localId))["userName"],JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
-            break
-
+          break
         case 410:
-            //私信图
-            imgMsg(JSON.parse(event.data).uid, userInfo.get(JSON.parse(event.data).uid).userName,JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
-            $(".onlieUserList #id"+JSON.parse(event.data).uid+" .textRight .textRightMsg p")[0].innerHTML="[图片]";
-            break
+          //私信图
+          imgMsg(JSON.parse(event.data).uid, userInfo.get(JSON.parse(event.data).uid).userName,JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
+          $(".onlieUserList #id"+JSON.parse(event.data).uid+" .textRight .textRightMsg p")[0].innerHTML="[图片]";
+          break;
         case 411:
-            //自己发送的私信
-            imgMsg(Number(localId), userInfo.get(Number(localId))["userName"],JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
-            break
-        case 500:case 510:
-            //500 成功发送好友请求   510查如此人
-            $p = $("<p/>").text(JSON.parse(event.data).msg)
-            $p.css({
-              "font-size":"16px",
-              "font-family":"宋体"
-            })
-            $(".modal-body")[0].append($p[0])
-            break;
+          //自己发送的私信
+          imgMsg(Number(localId), userInfo.get(Number(localId))["userName"],JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
+          break;
+        case 500:case 510:case 570:case 580:
+          //500 成功发送好友请求   510查无此人  570添加失败 580 本来就是好友
+          var $p = $("<p/>").text(JSON.parse(event.data).msg)
+          $p.css({
+            "font-size":"16px",
+            "font-family":"宋体"
+          })
+          $(".modal-body").append($p)
+          break;
         case 520:
-            //有人加你
-          console.log(JSON.parse(event.data).friendsrRquest)
-              break;
+          //有人加你
+          if(JSON.parse(event.data).friendsRequest.length!=0){
+            $(".rightSetting .friendsValidation span font")[0].innerHTML=JSON.parse(event.data).friendsRequest.length
+            FriendsRequestList(JSON.parse(event.data).friendsRequest)
+          }
+          break;
+        case 560:
+          //添加成功
+          console.log(JSON.parse(event.data))
+          drawOnlieList(JSON.parse(event.data).uid,JSON.parse(event.data).UserName,JSON.parse(event.data).UserHeadPortrait,element)
+          beeak;
       }
     }
   }
@@ -140,15 +147,27 @@ $(function() {
     var $form = $("<form/>").attr("action","").attr("method","get")
     var $inputText = $("<input/>").attr("class","addFriendsInputText").attr("type","text").attr("placeholder","请输入待添加好友的昵称/邮箱").attr("autocomplete","off");
     var $inputSumbit = $("<input/>").attr("class","addFriendsInputSumbit").attr("type","submit").attr("value","添加")
-    $form[0].append($inputText[0]);
-    $form[0].append($inputSumbit[0]);
-    $(".modal-body")[0].append($form[0])
+    $form.append($inputText);
+    $form.append($inputSumbit);
+    $(".modal-body").append($form)
     $inputSumbit.click(function(e){
       if($inputText.val()!="")
       socket.send(JSON.stringify({"status":500,"msg":$inputText.val()}))
       $inputText.val("")
       e.preventDefault();
     })
+    $("#triggerBtn").click();
+  })
+  //点开好友请求
+  $(".friendsValidation").click(function(e){
+    $(".modal-body").empty();
+    var $p = $("<p/>").text("暂无消息")
+            $p.css({
+              "font-size":"16px",
+              "font-family":"宋体"
+            })
+    $(".modal-body").append($p)
+    socket.send(JSON.stringify({"status":530}))
     $("#triggerBtn").click();
   })
   //离开
@@ -243,7 +262,7 @@ $(function() {
     })
   }
   //渲染在线列表
-  function drawOnlieList(id,name,srcImg){
+  function drawOnlieList(id,name,srcImg,element){
     var $pName = $("<p/>").text(name)
     var $iImg = $('<img src="'+srcImg+'"/>')
     var $pMsg = $("<p/>").text("")
@@ -262,24 +281,29 @@ $(function() {
     $dSimpleMsg.append($dTextLeft);
     $dSimpleMsg.append($dTextRight);
 
-    $(".onlieUserList").prepend($dSimpleMsg) //案例这句每多写一行 就多添加一个节点 事实写几行也只加一个节点
+    element.append($dSimpleMsg) //案例这句每多写一行 就多添加一个节点 事实写几行也只加一个节点
 
     if(id!=localId){
-    var $personChat = $("<div/>").addClass("id"+id).addClass("personChat").attr("id","id"+id)
-    var $psersonDIv = $("<div/>").addClass("personChatTitle").append($("<p/>").text(name))
-    $personChat.hide();
-    $(".indexTextBox").append($personChat.append($psersonDIv).append($("<span/>")))
-    //进入私聊
-      $dSimpleMsg.click(function(){
-        nowChat.hide();
-        nowChat=$personChat;
-        nowChat.show()
-        nowChatNum=1
-        for(var i=1;i<$personChat[0].childNodes.length;i++){
-          $personChat[0].childNodes[i].style.height="100%";
-        }
-      })
-    }
+
+      if($(".personChat.id"+id)==undefined){
+        var $personChat = $("<div/>").addClass("id"+id).addClass("personChat").attr("id","id"+id)
+        var $psersonDIv = $("<div/>").addClass("personChatTitle").append($("<p/>").text(name))
+        $personChat.hide();
+        $(".indexTextBox").append($personChat.append($psersonDIv).append($("<span/>")))
+      }
+  
+      
+      //进入私聊
+        $dSimpleMsg.click(function(){
+          nowChat.hide();
+          nowChat=$personChat;
+          nowChat.show()
+          nowChatNum=1
+          for(var i=1;i<$personChat[0].childNodes.length;i++){
+            $personChat[0].childNodes[i].style.height="100%";
+          }
+        })
+      }
     
   }
   ////处理已在线用户信息  110
@@ -290,7 +314,7 @@ $(function() {
         value.userName=arr[i].userName;
         imgSetBase64(arr[i].userHeadPortrait,value)
         userInfo.set(arr[i].uid,value);
-        drawOnlieList(arr[i].uid,arr[i].userName,arr[i].userHeadPortrait)
+        drawOnlieList(arr[i].uid,arr[i].userName,arr[i].userHeadPortrait,$(".onlieUserList"))
     }
     //当前聊天为群聊
     nowChat=$(".groupChat")
@@ -301,6 +325,51 @@ $(function() {
     $(".indexText").removeAttr("readonly")
     $(".indexText").removeAttr("placeholder")
   }
+  //有人加你
+  function FriendsRequestList(arr){
+    $(".modal-body").empty();
+    //渲染请求列表
+    for(var i=0;i<arr.length;i++){
+      var $div = $("<div/>").attr("id","id"+arr[i].userId).css({"overflow":"hidden","margin-bottom":"7px"})
+      var $inputAgreed = $("<input/>").attr("type","submit").attr("value"," 同意 ").attr("class","agreedOrRefused").css({"float":"right" })
+      var $inputRefused = $("<input/>").attr("type","submit").attr("value"," 拒绝 ").attr("class","agreedOrRefused").css({"float":"right" })
+      var $span = $("<span/>").text("["+arr[i].userName+"]请求添加你为好友").css({"font-size":"16px","font-family":"宋体","float":"left"})
+      $div.append($span).append($inputAgreed).append($inputRefused)
+      $(".modal-body").append($div)
+      //同意 count--
+      $inputAgreed.click(function(){
+        id = Number(($(this).parent()[0].id).slice(2))
+        socket.send(JSON.stringify({"status":540,"uid":id}))
+        $(this).parent().remove();
+        var count=Number($(".friendsValidation span font")[0].innerHTML);
+        if(count==1){
+          $(".friendsValidation span font")[0].innerHTML=""
+        }else{
+          $(".friendsValidation span font")[0].innerHTML=count-1
+        }
+        //关闭模态框
+        if($(".modal-body").children().length==0){
+          $(".modal .close").click();
+        }
+      })
+      //不同意 count--
+      $inputRefused.click(function(){
+        id = Number(($(this).parent()[0].id).slice(2))
+        socket.send(JSON.stringify({"status":550,"uid":id}))
+        $(this).parent().remove();
+        var count=Number($(".friendsValidation span font")[0].innerHTML);
+        if(count==1){
+          $(".friendsValidation span font")[0].innerHTML=""
+        }else{
+          $(".friendsValidation span font")[0].innerHTML=count-1
+        }
+        //关闭模态框
+        if($(".modal-body").children().length==0){
+          $(".modal .close").click();
+        }
+      })
+    }
+  }
   //新用户登入  120
   function saveNewOnlieUser(arr){
     if (arr.uid!=localId){
@@ -309,7 +378,7 @@ $(function() {
       imgSetBase64(arr.userHeadPortrait,value)
       userInfo.set(arr.uid,value);
       update(arr.userName+"来到了聊天室")
-      drawOnlieList(arr.uid,arr.userName,arr.userHeadPortrait);
+      drawOnlieList(arr.uid,arr.userName,arr.userHeadPortrait,$(".onlieUserList"));
     }
   }
   //删除在线用户列表
