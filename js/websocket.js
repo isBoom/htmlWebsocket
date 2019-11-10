@@ -70,6 +70,7 @@ $(function() {
           break;
         case 400:
           //私信
+          console.log(userInfo)
           simpleMsg(JSON.parse(event.data).uid, userInfo.get(JSON.parse(event.data).uid).userName,JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
           for(var i=0;i<$(".friendsInterfaLeft #id"+JSON.parse(event.data).uid+" .textRight .textRightMsg p").length;i++){
             $(".friendsInterfaLeft #id"+JSON.parse(event.data).uid+" .textRight .textRightMsg p")[i].innerHTML=JSON.parse(event.data).msg;
@@ -107,13 +108,25 @@ $(function() {
           }
           break;
         case 540:
+          //好友列表
           for(var i=0;i<JSON.parse(event.data).user.length;i++){
+            if(!userInfo.get(JSON.parse(event.data).user[i].userId)){
+              var value={}
+              value.userName=JSON.parse(event.data).user[i].userName;
+              imgSetBase64(JSON.parse(event.data).user[i].userHeadPortrait,value)
+              userInfo.set(JSON.parse(event.data).user[i].userId,value);
+            } 
             drawOnlieList(JSON.parse(event.data).user[i].userId,JSON.parse(event.data).user[i].userName,JSON.parse(event.data).user[i].userHeadPortrait,$(".friendUserList"))
           }
           break;
         case 560: 
           //添加成功
-          console.log(JSON.parse(event.data).user[0])
+          if(!userInfo.get(JSON.parse(event.data).user[0].userId)){
+            var value={}
+            value.userName=JSON.parse(event.data).user[0].userName;
+            imgSetBase64(JSON.parse(event.data).user[0].userHeadPortrait,value)
+            userInfo.set(JSON.parse(event.data).user[0].userId,value);
+          } 
           drawOnlieList(JSON.parse(event.data).user[0].uid,JSON.parse(event.data).user[0].userName,JSON.parse(event.data).user[0].userHeadPortrait,$(".friendUserList")) 
           break;
       }
