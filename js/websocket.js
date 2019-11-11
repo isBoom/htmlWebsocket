@@ -79,6 +79,9 @@ $(function() {
         case 401:
           //自己发送的私信
           simpleMsg(Number(localId), userInfo.get(Number(localId))["userName"],JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
+          for(var i=0;i<$(".friendsInterfaLeft #id"+JSON.parse(event.data).uid+" .textRight .textRightMsg p").length;i++){
+            $(".friendsInterfaLeft #id"+JSON.parse(event.data).uid+" .textRight .textRightMsg p")[i].innerHTML="我:"+JSON.parse(event.data).msg;
+          }
           break
         case 410:
           //私信图
@@ -90,6 +93,9 @@ $(function() {
         case 411:
           //自己发送的私信
           imgMsg(Number(localId), userInfo.get(Number(localId))["userName"],JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
+          for(var i=0;i<$(".friendsInterfaLeft #id"+JSON.parse(event.data).uid+" .textRight .textRightMsg p").length;i++){
+            $(".friendsInterfaLeft #id"+JSON.parse(event.data).uid+" .textRight .textRightMsg p")[i].innerHTML="我:[图片]";
+          }
           break;
         case 500:case 510:case 570:case 580:
           //500 成功发送好友请求   510查无此人  570添加失败 580 本来就是好友
@@ -115,7 +121,7 @@ $(function() {
               value.userName=JSON.parse(event.data).user[i].userName;
               imgSetBase64(JSON.parse(event.data).user[i].userHeadPortrait,value)
               userInfo.set(JSON.parse(event.data).user[i].userId,value);
-            } 
+            }
             drawOnlieList(JSON.parse(event.data).user[i].userId,JSON.parse(event.data).user[i].userName,JSON.parse(event.data).user[i].userHeadPortrait,$(".friendUserList"))
           }
           break;
@@ -247,7 +253,7 @@ $(function() {
     $dSimpleMsg.animate({
           "height": msghHeight+"px",
           "width":"100%"
-      }, 150);
+      }, 150,);
   }
   //图片消息
   function imgMsg(id,name,msg,element){
