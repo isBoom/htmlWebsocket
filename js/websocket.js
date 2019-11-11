@@ -247,7 +247,7 @@ $(function() {
     $dSimpleMsg.animate({
           "height": msghHeight+"px",
           "width":"100%"
-      }, 150,);
+      }, 150);
   }
   //图片消息
   function imgMsg(id,name,msg,element){
