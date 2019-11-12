@@ -53,11 +53,14 @@ $(function() {
           break;
         case 200:
           //普通用户消息
-          simpleMsg(JSON.parse(event.data).uid, JSON.parse(event.data).userName,JSON.parse(event.data).msg,$(".groupChat .pgroupChat"))
+          simpleMsg(JSON.parse(event.data).userId, JSON.parse(event.data).userName,JSON.parse(event.data).msg,$(".groupChat .pgroupChat"))
           break;
         case 210:
           //不发图等着做遗产吗
-          imgMsg(JSON.parse(event.data).uid, JSON.parse(event.data).userName,JSON.parse(event.data).msg,$(".groupChat .pgroupChat"))
+          imgMsg(JSON.parse(event.data).userId, JSON.parse(event.data).userName,JSON.parse(event.data).msg,$(".groupChat .pgroupChat"))
+          break;
+        case 233:
+          OfflineMessage(JSON.parse(event.data).data);
           break;
         case 311:
           //改头换命
@@ -70,31 +73,30 @@ $(function() {
           break;
         case 400:
           //私信
-          console.log(userInfo)
-          simpleMsg(JSON.parse(event.data).uid, userInfo.get(JSON.parse(event.data).uid).userName,JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
-          for(var i=0;i<$(".friendsInterfaLeft #id"+JSON.parse(event.data).uid+" .textRight .textRightMsg p").length;i++){
-            $(".friendsInterfaLeft #id"+JSON.parse(event.data).uid+" .textRight .textRightMsg p")[i].innerHTML=JSON.parse(event.data).msg;
+          simpleMsg(JSON.parse(event.data).userId, userInfo.get(JSON.parse(event.data).userId).userName,JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).userId+" .personChatTitle"))
+          for(var i=0;i<$(".friendsInterfaLeft #id"+JSON.parse(event.data).userId+" .textRight .textRightMsg p").length;i++){
+            $(".friendsInterfaLeft #id"+JSON.parse(event.data).userId+" .textRight .textRightMsg p")[i].innerHTML=JSON.parse(event.data).msg;
           }
           break
         case 401:
           //自己发送的私信
-          simpleMsg(Number(localId), userInfo.get(Number(localId))["userName"],JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
-          for(var i=0;i<$(".friendsInterfaLeft #id"+JSON.parse(event.data).uid+" .textRight .textRightMsg p").length;i++){
-            $(".friendsInterfaLeft #id"+JSON.parse(event.data).uid+" .textRight .textRightMsg p")[i].innerHTML="我:"+JSON.parse(event.data).msg;
+          simpleMsg(Number(localId), userInfo.get(Number(localId))["userName"],JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).userId+" .personChatTitle"))
+          for(var i=0;i<$(".friendsInterfaLeft #id"+JSON.parse(event.data).userId+" .textRight .textRightMsg p").length;i++){
+            $(".friendsInterfaLeft #id"+JSON.parse(event.data).userId+" .textRight .textRightMsg p")[i].innerHTML="我:"+JSON.parse(event.data).msg;
           }
           break
         case 410:
           //私信图
-          imgMsg(JSON.parse(event.data).uid, userInfo.get(JSON.parse(event.data).uid).userName,JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
-          for(var i=0;i<$(".friendsInterfaLeft #id"+JSON.parse(event.data).uid+" .textRight .textRightMsg p").length;i++){
-            $(".friendsInterfaLeft #id"+JSON.parse(event.data).uid+" .textRight .textRightMsg p")[i].innerHTML="[图片]";
+          imgMsg(JSON.parse(event.data).userId, userInfo.get(JSON.parse(event.data).userId).userName,JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).userId+" .personChatTitle"))
+          for(var i=0;i<$(".friendsInterfaLeft #id"+JSON.parse(event.data).userId+" .textRight .textRightMsg p").length;i++){
+            $(".friendsInterfaLeft #id"+JSON.parse(event.data).userId+" .textRight .textRightMsg p")[i].innerHTML="[图片]";
           }
           break;
         case 411:
           //自己发送的私信
-          imgMsg(Number(localId), userInfo.get(Number(localId))["userName"],JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).uid+" .personChatTitle"))
-          for(var i=0;i<$(".friendsInterfaLeft #id"+JSON.parse(event.data).uid+" .textRight .textRightMsg p").length;i++){
-            $(".friendsInterfaLeft #id"+JSON.parse(event.data).uid+" .textRight .textRightMsg p")[i].innerHTML="我:[图片]";
+          imgMsg(Number(localId), userInfo.get(Number(localId))["userName"],JSON.parse(event.data).msg,$(".personChat.id"+JSON.parse(event.data).userId+" .personChatTitle"))
+          for(var i=0;i<$(".friendsInterfaLeft #id"+JSON.parse(event.data).userId+" .textRight .textRightMsg p").length;i++){
+            $(".friendsInterfaLeft #id"+JSON.parse(event.data).userId+" .textRight .textRightMsg p")[i].innerHTML="我:[图片]";
           }
           break;
         case 500:case 510:case 570:case 580:
@@ -113,28 +115,18 @@ $(function() {
             FriendsRequestList(JSON.parse(event.data).friendsRequest)
           }
           break;
-        case 540:
-          //好友列表
-          for(var i=0;i<JSON.parse(event.data).user.length;i++){
-            if(!userInfo.get(JSON.parse(event.data).user[i].userId)){
-              var value={}
-              value.userName=JSON.parse(event.data).user[i].userName;
-              imgSetBase64(JSON.parse(event.data).user[i].userHeadPortrait,value)
-              userInfo.set(JSON.parse(event.data).user[i].userId,value);
+        case 540: case 560:
+          //540 添加成功 560好友列表
+            for(var i=0;i<JSON.parse(event.data).user.length;i++){
+              if(!userInfo.get(JSON.parse(event.data).user[i].userId)){
+                var value={}
+                value.userName=JSON.parse(event.data).user[i].userName;
+                imgSetBase64(JSON.parse(event.data).user[i].userHeadPortrait,value)
+                userInfo.set(JSON.parse(event.data).user[i].userId,value);
+              }
+              drawOnlieList(JSON.parse(event.data).user[i].userId,JSON.parse(event.data).user[i].userName,JSON.parse(event.data).user[i].userHeadPortrait,$(".friendUserList"))
             }
-            drawOnlieList(JSON.parse(event.data).user[i].userId,JSON.parse(event.data).user[i].userName,JSON.parse(event.data).user[i].userHeadPortrait,$(".friendUserList"))
-          }
-          break;
-        case 560: 
-          //添加成功
-          if(!userInfo.get(JSON.parse(event.data).user[0].userId)){
-            var value={}
-            value.userName=JSON.parse(event.data).user[0].userName;
-            imgSetBase64(JSON.parse(event.data).user[0].userHeadPortrait,value)
-            userInfo.set(JSON.parse(event.data).user[0].userId,value);
-          } 
-          drawOnlieList(JSON.parse(event.data).user[0].uid,JSON.parse(event.data).user[0].userName,JSON.parse(event.data).user[0].userHeadPortrait,$(".friendUserList")) 
-          break;
+            break;
       }
     }
   }
@@ -149,8 +141,8 @@ $(function() {
         socket.send(JSON.stringify({"status":200,"msg":$(".indexText").val()}))
       }else{
         var temp=(nowChat[0].id).slice(2)
-        var uid = Number(temp)
-        socket.send(JSON.stringify({"status":400,"uid":uid,"msg":$(".indexText").val()}))
+        var userId = Number(temp)
+        socket.send(JSON.stringify({"status":400,"userId":userId,"msg":$(".indexText").val()}))
       }
       
       $(".indexText").val("")
@@ -331,7 +323,36 @@ $(function() {
           }
         })
       }
-    
+  }
+  //离线消息
+  function OfflineMessage(arr){
+    arr.forEach(e => {
+      if(e.toId==Number(localId)){
+          if(e.status==400){
+            simpleMsg(e.fromId, userInfo.get(e.fromId).userName,e.msg,$(".personChat.id"+e.fromId+" .personChatTitle"))
+            for(var i=0;i<$(".friendsInterfaLeft #id"+e.fromId+" .textRight .textRightMsg p").length;i++){
+              $(".friendsInterfaLeft #id"+e.fromId+" .textRight .textRightMsg p")[i].innerHTML=e.msg;
+            }
+          }else if(e.status==410){
+            imgMsg(e.fromId, userInfo.get(e.fromId).userName,e.msg,$(".personChat.id"+e.fromId+" .personChatTitle"))
+            for(var i=0;i<$(".friendsInterfaLeft #id"+e.fromId+" .textRight .textRightMsg p").length;i++){
+              $(".friendsInterfaLeft #id"+e.fromId+" .textRight .textRightMsg p")[i].innerHTML="[图片]";
+            }
+          }
+      }else if(e.fromId==Number(localId)){
+          if(e.status==400){
+            simpleMsg(e.fromId, userInfo.get(e.fromId).userName,e.msg,$(".personChat.id"+e.toId+" .personChatTitle"))
+            for(var i=0;i<$(".friendsInterfaLeft #id"+e.toId+" .textRight .textRightMsg p").length;i++){
+              $(".friendsInterfaLeft #id"+e.toId+" .textRight .textRightMsg p")[i].innerHTML="我:"+e.msg;
+            }
+          }else if(e.status==410){
+            imgMsg(e.fromId, userInfo.get(e.fromId)["userName"],e.msg,$(".personChat.id"+e.toId+" .personChatTitle"))
+            for(var i=0;i<$(".friendsInterfaLeft #id"+e.toId+" .textRight .textRightMsg p").length;i++){
+              $(".friendsInterfaLeft #id"+e.toId+" .textRight .textRightMsg p")[i].innerHTML="我:[图片]";
+            }
+          }
+      }
+    });
   }
   ////处理已在线用户信息  110
   function saveOnlineData(arr){
@@ -340,8 +361,8 @@ $(function() {
         var value={}
         value.userName=arr[i].userName;
         imgSetBase64(arr[i].userHeadPortrait,value)
-        userInfo.set(arr[i].uid,value);
-        drawOnlieList(arr[i].uid,arr[i].userName,arr[i].userHeadPortrait,$(".onlieUserList"))
+        userInfo.set(arr[i].userId,value);
+        drawOnlieList(arr[i].userId,arr[i].userName,arr[i].userHeadPortrait,$(".onlieUserList"))
     }
     //当前聊天为群聊
     nowChat=$(".groupChat")
@@ -366,7 +387,7 @@ $(function() {
       //同意 count--
       $inputAgreed.click(function(){
         id = Number(($(this).parent()[0].id).slice(2))
-        socket.send(JSON.stringify({"status":540,"uid":id}))
+        socket.send(JSON.stringify({"status":540,"userId":id}))
         $(this).parent().remove();
         var count=Number($(".friendsValidation span font")[0].innerHTML);
         if(count==1){
@@ -382,7 +403,7 @@ $(function() {
       //不同意 count--
       $inputRefused.click(function(){
         id = Number(($(this).parent()[0].id).slice(2))
-        socket.send(JSON.stringify({"status":550,"uid":id}))
+        socket.send(JSON.stringify({"status":550,"userId":id}))
         $(this).parent().remove();
         var count=Number($(".friendsValidation span font")[0].innerHTML);
         if(count==1){
@@ -399,30 +420,35 @@ $(function() {
   }
   //新用户登入  120
   function saveNewOnlieUser(arr){
-    if (arr.uid!=localId){
+    if (arr.userId!=localId){
       var value ={}
       value.userName=arr.userName;
       imgSetBase64(arr.userHeadPortrait,value)
-      userInfo.set(arr.uid,value);
+      userInfo.set(arr.userId,value);
       update(arr.userName+"来到了聊天室")
-      drawOnlieList(arr.uid,arr.userName,arr.userHeadPortrait,$(".onlieUserList"));
+      drawOnlieList(arr.userId,arr.userName,arr.userHeadPortrait,$(".onlieUserList"));
+
+      if($(".friendsInterfaLeft #id"+String(arr.userId))[0]){
+        $(".onlieUserList #id"+String(arr.userId))[0].innerHTML = $(".friendUserList #id"+String(arr.userId))[0].innerHTML
+      }
     }
   }
   //删除在线用户列表
   function delOnlieUser(data){
-    userInfo.delete(data.uid)
+    userInfo.delete(data.userId)
     update(data.userName+"离开了聊天室")
-    $(".onlieUserList #id"+String(data.uid)).remove();
-    if(!$(".friendsInterfaLeft #id"+String(data.uid))[0]){
-      $(".indexTextBox .personChat.id"+String(data.uid)).remove();
+    $(".onlieUserList #id"+String(data.userId)).remove();
+    if(!$(".friendsInterfaLeft #id"+String(data.userId))[0]){
+      $(".indexTextBox .personChat.id"+String(data.userId)).remove();
+      $(".backGroupChat").click();
     }
 }
 //修改头像
 function ChangeUserHeadPortraitOk(arr){
-    userInfo.get(arr.uid).userHeadPortrait=arr.userHeadPortrait
-    var temp="#id"+String(arr.uid)
+    userInfo.get(arr.userId).userHeadPortrait=arr.userHeadPortrait
+    var temp="#id"+String(arr.userId)
     $(temp+" .textLeft img").attr("src",arr.userHeadPortrait)
-    update(userInfo.get(arr.uid).userName+"修改了头像")
+    update(userInfo.get(arr.userId).userName+"修改了头像")
 }
 //img转Base64
   function getBase64Image(img) {

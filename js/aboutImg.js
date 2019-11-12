@@ -17,8 +17,8 @@ $(function(){
                 socket.send(JSON.stringify({"status":210,"msg":reader.result}))
             }else{
                 var temp=(nowChat[0].id).slice(2)
-                var uid = Number(temp)
-                socket.send(JSON.stringify({"status":410,"uid":uid,"msg":reader.result}))
+                var userId = Number(temp)
+                socket.send(JSON.stringify({"status":410,"userId":userId,"msg":reader.result}))
             }
             
             toBeSendImg_p = $("<p/>").text("正在发送图片(服务器宽带只有5M,速度慢请见谅)...");

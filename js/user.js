@@ -19,8 +19,6 @@ $(function() {
     return false;
   })
 
-
-
   function login(){
     $.ajax({
       url: "https://xxxholic.top:8088/login",
