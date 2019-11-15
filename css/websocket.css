@@ -63,10 +63,6 @@
     float: left;
     font-size: 10px;
     margin-top:1em;
-    width: 90%;
-}
-.onlieUserListBox .simpleMsg .textRight{
-    float: left;
     width: 60% !important;
 }
 .simpleMsg .textRight .textRightName p{
