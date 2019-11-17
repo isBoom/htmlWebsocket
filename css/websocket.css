@@ -32,7 +32,7 @@
 
 .friendsInterfaLeft .onlieUserListBox,.friendsInterfaLeft .friendUserListBox{
     width: 120%;
-    max-height: 74%;
+    max-height: 72%;
     overflow: hidden;
     overflow-y:scroll;
 }
