@@ -70,6 +70,9 @@
     margin-top:1em;
     width: 60% !important;
 }
+.friendsInterfaLeft .textRight{
+    padding-left: 5%;
+}
 .simpleMsg .textRight .textRightName p{
     color: aquamarine;
     font-size: 1.3em;
