@@ -51,13 +51,18 @@
     float: left;
 }
 .simpleMsg .textLeft .img{
-    padding:10%;
-    height:width;
+    margin: 20%;
+    margin-right: 20%;
+    width: 100%;
+    height: 0px;
+    padding-bottom: 100%;
+    position: relative;
 }
 .simpleMsg .textLeft .img img{
-    width: 80%;
-    margin: auto;
     border-radius: 5000px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
 }
 .simpleMsg .textRight{
     float: left;
