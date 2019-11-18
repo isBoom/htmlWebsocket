@@ -72,7 +72,7 @@
   float: left;
   font-size: 10px;
   margin-left: 2%;
-  margin-top: 1em;
+  margin-top: 2%;
   width: 60% !important;
 }
 .friendsInterfaLeft .textRight {
@@ -87,8 +87,11 @@
   padding-right: 3%;
 }
 .simpleMsg .textRight .textRightMsg {
-  margin-top: 1em;
+  margin-top: 3%;
   width: 100%;
+}
+.friendsInterfaLeft .simpleMsg .textRight .textRightMsg {
+  margin-top: 10% !important;
 }
 .simpleMsg .textRight .textRightMsg p {
   color: aqua;
@@ -127,9 +130,6 @@
 .friendsInterfaLeft .textRight {
   margin-top: 5%;
   width: 70%;
-}
-.friendsInterfaLeft .textRightMsg {
-  margin-top: 10% !important;
 }
 
 .rightSetting {
