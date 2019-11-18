@@ -1,157 +1,166 @@
-.friendsInterfaLeft{
-    background: rgba(0,0,0,0.1);
-    float: left !important;
-    width: 20%;
-    height: 692px;
-    border: 1px solid rgba(200, 50,20, 0.2);
-    overflow: hidden;
+.friendsInterfaLeft {
+  background: rgba(0, 0, 0, 0.1);
+  float: left !important;
+  width: 20%;
+  height: 99%;
+  border: 1px solid rgba(200, 50, 20, 0.2);
+  overflow: hidden;
 }
-.friendsInterfaLeft .onlieUserList,.friendsInterfaLeft .friendUserList{
-    width: 100%;
+.friendsInterfaLeft .onlieUserList,
+.friendsInterfaLeft .friendUserList {
+  width: 100%;
 }
-.friendsInterfaLeft .pFriendUserListBox,.friendsInterfaLeft .pOnlieUserListBox,.friendsInterfaLeft .backGroupChat{
-    text-align: center;
-    color: darkorange;
-    font-size: 1em;
-    font-family: "宋体";
-    margin-top: 10px;
-    margin-bottom: 10px;
+.friendsInterfaLeft .pFriendUserListBox,
+.friendsInterfaLeft .pOnlieUserListBox,
+.friendsInterfaLeft .backGroupChat {
+  text-align: center;
+  color: darkorange;
+  font-size: 1em;
+  font-family: "宋体";
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
-.friendsInterfaLeft .simpleMsg{
-    background: rgba(0,0,0,0.2);
-    border-bottom: 1px solid  rgba(0,0,0,0.4);
-    border-top: 1px solid  rgba(0,0,0,0.2);
-    border-collapse: collapse;
+.friendsInterfaLeft .simpleMsg {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-collapse: collapse;
 }
-.friendsInterfaLeft .simpleMsg .textRight .textRightMsg p{
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    overflow: hidden;
-}
-
-.friendsInterfaLeft .onlieUserListBox,.friendsInterfaLeft .friendUserListBox{
-    width: 120%;
-    max-height: 72%;
-    overflow: hidden;
-    overflow-y:scroll;
-}
-.chatInterfaceRight{
-    border: 1px solid rgba(200, 50,20, 0.2);
-    float: left;
-    width: 77%;
+.friendsInterfaLeft .simpleMsg .textRight .textRightMsg p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
 }
 
-.simpleMsg{
-    width: 100%;
-    overflow: hidden;
+.friendsInterfaLeft .onlieUserListBox,
+.friendsInterfaLeft .friendUserListBox {
+  width: 120%;
+  max-height: 72%;
+  overflow: hidden;
+  overflow-y: scroll;
 }
-.simpleMsg .textLeft{
-    width: 7%;
-    float: left;
-}
-.simpleMsg .textLeft .img{
-    margin: 10%;
-    width: 100%;
-    height: 0px;
-    padding-bottom: 100%;
-    position: relative;
-}
-.simpleMsg .textLeft .img img{
-    border-radius: 5000px;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-}
-.simpleMsg .textRight{
-    float: left;
-    font-size: 10px;
-    margin-left:2%;
-    margin-top:1em;
-    width: 60% !important;
-}
-.friendsInterfaLeft .textRight{
-    padding-left: 5%;
-}
-.simpleMsg .textRight .textRightName p{
-    color: aquamarine;
-    font-size: 1.3em;
-    font-family: "宋体";
-}
-.simpleMsg .textRight .textRightName p{
-    padding-right: 3%;
-}
-.simpleMsg .textRight .textRightMsg{
-    margin-top:1em;
-    width: 100%;
-}
-.simpleMsg .textRight .textRightMsg p{
-    color: aqua;
-    font-size: 1.7em;
-    font-family: "宋体";
-}
-.simpleMsg .textRight .textRightMsg img{
-   width: 30%;
-}
-.pcomeChat{
-    text-align: center;
-    color: darkorange;
-    font-family: "宋体";
-    font-size: 0.7em;
-    margin-left: 38%;
-    margin-right: 38%;
-    letter-spacing: 3px;
-    background: rgba(200, 50,20, 0.2);
-    border-radius: 100px;
-    padding: 5px 0 5px 0;
-}
-.groupChat,.personChat{
-    overflow: hidden;
-}
-.pgroupChat,.personChatTitle{
-    text-align: center;
-    color: darkorange;
-    font-size: 1em;
-    font-family: "宋体";
-}
-.friendsInterfaLeft .textLeft{
-    width: 20%;
-    margin-left: 10%;
-}
-.friendsInterfaLeft .textRight{
-    width: 70%;
-}
-.rightSetting{
-   position: absolute;
-   right :0px !important;
-}
-.rightSetting>div{
-    text-align: center;
-    color: darkorange;
-    position: absolute;
-    right:10px;
-}
-.rightSetting .sendImg{
-    top: 10px;
-}
-.rightSetting .changeUserHeadPortrait{
-    top: 50px;
-}
-.rightSetting .addFriends{
-    top: 90px;
-}
-.rightSetting .friendsValidation{
-    top: 130px;
-}
-.rightSetting .safeLeave{
-    top: 170px;
-}
-.rightSetting .changeUserName{
-    top: 210px;
+.chatInterfaceRight {
+  border: 1px solid rgba(200, 50, 20, 0.2);
+  float: left;
+  width: 77%;
+  height: 99%;
 }
 
+.simpleMsg {
+  width: 100%;
+  overflow: hidden;
+}
+.simpleMsg .textLeft {
+  width: 7%;
+  float: left;
+}
+.simpleMsg .textLeft .img {
+  margin: 10%;
+  width: 100%;
+  height: 0px;
+  padding-bottom: 100%;
+  position: relative;
+}
+.simpleMsg .textLeft .img img {
+  border-radius: 5000px;
+  width: 80%;
+  height: 80%;
+  padding: 10%;
+  position: absolute;
+}
+.simpleMsg .textRight {
+  float: left;
+  font-size: 10px;
+  margin-left: 2%;
+  margin-top: 1em;
+  width: 60% !important;
+}
+.friendsInterfaLeft .textRight {
+  padding-left: 5%;
+}
+.simpleMsg .textRight .textRightName p {
+  color: aquamarine;
+  font-size: 1.3em;
+  font-family: "宋体";
+}
+.simpleMsg .textRight .textRightName p {
+  padding-right: 3%;
+}
+.simpleMsg .textRight .textRightMsg {
+  margin-top: 1em;
+  width: 100%;
+}
+.simpleMsg .textRight .textRightMsg p {
+  color: aqua;
+  font-size: 1.7em;
+  font-family: "宋体";
+}
+.simpleMsg .textRight .textRightMsg img {
+  width: 30%;
+}
+.pcomeChat {
+  text-align: center;
+  color: darkorange;
+  font-family: "宋体";
+  font-size: 0.7em;
+  margin-left: 38%;
+  margin-right: 38%;
+  letter-spacing: 3px;
+  background: rgba(200, 50, 20, 0.2);
+  border-radius: 100px;
+  padding: 5px 0 5px 0;
+}
+.groupChat,
+.personChat {
+  overflow: hidden;
+}
+.pgroupChat,
+.personChatTitle {
+  text-align: center;
+  color: darkorange;
+  font-size: 1em;
+  font-family: "宋体";
+}
+.friendsInterfaLeft .textLeft {
+  width: 20%;
+}
+.friendsInterfaLeft .textRight {
+  margin-top: 5%;
+  width: 70%;
+}
+.friendsInterfaLeft .textRightMsg {
+  margin-top: 10% !important;
+}
 
+.rightSetting {
+  position: absolute;
+  right: 0px !important;
+}
+.rightSetting > div {
+  text-align: center;
+  color: darkorange;
+  position: absolute;
+  right: 10px;
+}
+.rightSetting .sendImg {
+  top: 10px;
+}
+.rightSetting .changeUserHeadPortrait {
+  top: 50px;
+}
+.rightSetting .addFriends {
+  top: 90px;
+}
+.rightSetting .friendsValidation {
+  top: 130px;
+}
+.rightSetting .safeLeave {
+  top: 170px;
+}
+.rightSetting .changeUserName {
+  top: 210px;
+}
 
-.rightSetting span{
-    font-size: 1.2em;
+.rightSetting span {
+  font-size: 1.2em;
 }
